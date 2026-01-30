@@ -45,7 +45,17 @@ Skills-factory/
 - Conventional Commits形式を推奨
 
 ### 3. ブランチ運用
-- mainブランチへの直接プッシュは避け、PRを使用する
+- mainブランチへの直接プッシュは禁止（権限で制限）
+- 必ずfeatureブランチからPRを作成してマージする
+
+### 4. PR作成・マージ手順
+```bash
+# PRを作成
+gh pr create --base main --title "タイトル" --body "説明"
+
+# PRをマージ
+gh pr merge --merge
+```
 
 ---
 
