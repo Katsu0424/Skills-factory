@@ -1,105 +1,36 @@
 # Skills-factory
 
-Claude Code用のSkillおよびRuleを作成・管理するためのプロジェクト
+Claude Code用のSkill / Rule / Agent / Bundleを作成・管理するリポジトリ。
 
-## 目的
+## Skills
 
-- 再利用可能なSkill/Ruleの作成
-- 開発ワークフローの効率化
-- ベストプラクティスの蓄積
+| 名前 | 説明 | 呼び出し方 |
+|------|------|------------|
+| [code-review](./artifacts/skills/code-review/) | コードレビュー | 「レビューして」等 |
+| [bug-investigation](./artifacts/skills/bug-investigation/) | バグ調査・原因特定 | 「調査して」「原因は？」等 |
+| [sql-optimization](./artifacts/skills/sql-optimization/) | SQLクエリ最適化 | 「最適化して」等 |
+| [ask-workflow](./artifacts/skills/ask-workflow/) | 曖昧な依頼の明確化 | 曖昧な依頼時に自動 |
+| [release-note-analyzer](./artifacts/skills/release-note-analyzer/) | 依存ライブラリのアップデート影響分析 | 「アップデートしたい」「差分を教えて」等 |
+
+## Bundles
+
+| 名前 | 説明 |
+|------|------|
+| [autonomous-workflow](./artifacts/bundles/autonomous-workflow/) | 自律エージェントワークフロー（Plan & Dig → Do Phase） |
 
 ## ディレクトリ構成
 
 ```
-Skills-factory/
-├── CLAUDE.md                    # プロジェクトルール
-├── README.md                    # 本ファイル
-├── .claude/
-│   ├── settings.json            # プロジェクト設定
-│   └── rules/
-│       └── skill-creator.md     # Skill/Rule作成ルール
-├── artifacts/                   # 成果物
-│   ├── rules/                   # 単体Rule
-│   ├── skills/                  # 単体Skill
-│   ├── agents/                  # Agent
-│   └── bundles/                 # 用途別ツールセット
-└── .github/
-    └── pull_request_template.md
+artifacts/
+├── rules/      # 単体Rule
+├── skills/     # 単体Skill
+├── agents/     # 単体Agent
+└── bundles/    # 用途別ツールセット
 ```
-
-## 成果物の種類
-
-### Rules（単体ルール）
-特定のトリガーで適用されるルール。
-
-配置: `artifacts/rules/<name>.md`
-
-### Skills（単体スキル）
-会話で呼び出されるスキル。
-
-配置: `artifacts/skills/<name>/SKILL.md`
-
-### Agents（エージェント）
-自律的にタスクを実行するエージェント。
-
-配置: `artifacts/agents/<name>/AGENT.md`
-
-### Bundles（ツールセット）
-用途別に複数のRule/Skill/Agentをまとめたセット。
-
-配置: `artifacts/bundles/<bundle-name>/`
-
-```
-artifacts/bundles/<bundle-name>/
-├── README.md           # バンドルの説明・使い方
-├── rules/              # このバンドルに含まれるルール
-├── skills/             # このバンドルに含まれるスキル
-└── agents/             # このバンドルに含まれるエージェント
-```
-
-## 成果物一覧
-
-### Rules
-| 名前 | 説明 | トリガー |
-|------|------|----------|
-| commit-message | コミットメッセージ + 粒度分割 | `claude commit` |
-| pr-template | PR説明生成 | `claude pr` |
-
-### Skills
-| 名前 | 説明 | 呼び出し方 |
-|------|------|------------|
-| code-review | コードレビュー | 「レビューして」等 |
-| ask-workflow | 汎用ask | 曖昧な依頼時 |
-| bug-investigation | バグ調査 | 「調査して」等 |
-| sql-optimization | SQLクエリ最適化 | 「最適化して」等 |
-
-### Agents
-（今後追加予定）
-
-### Bundles
-（今後追加予定）
 
 ## 使い方
 
-### Skill/Ruleの作成
-
-1. `/skill-creator` コマンドを実行（Skillの場合）
-2. 生成されたファイルを `artifacts/` 配下に配置
-
-詳細は `.claude/rules/skill-creator.md` を参照。
-
-### 成果物の利用
-
-作成したSkill/Ruleを他のプロジェクトで使用する場合：
-
-1. 必要なファイルを対象プロジェクトの `.claude/` にコピー
-2. または、bundleごとコピーして利用
-
-## 開発ルール
-
-- コミット: Conventional Commits形式を推奨
-- ブランチ: mainへの直接プッシュ可（設定による）
-- Skill作成時は `/skill-creator` コマンドを使用
+作成したSkill/Ruleを他プロジェクトで使用する場合、対象プロジェクトの `.claude/` にコピー。
 
 ## ライセンス
 
