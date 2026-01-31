@@ -78,7 +78,9 @@
 | エスカレーション | 3回失敗でユーザーへ |
 | 最終確認 | ユーザーに確認を求める |
 
-## スキル一覧
+## スキル一覧（Skills）
+
+ユーザーが呼び出すコマンド形式のスキル。
 
 ### Plan & Dig Phase
 
@@ -88,10 +90,14 @@
 | decompose | タスク分解 | ✓ 作成済み |
 | evaluate | 評価・承認 | ✓ 作成済み |
 
+## エージェント一覧（Agents）
+
+自律的に動作するエージェント。conductorが状況に応じて選択・実行する。
+
 ### Do Phase
 
-| スキル | 役割 | 状態 |
-|--------|------|------|
+| エージェント | 役割 | 状態 |
+|--------------|------|------|
 | conductor | 指揮者（状況判断・エージェント選択） | ✓ 作成済み |
 | implementer | 実装者（コード作成・編集） | ✓ 作成済み |
 | validator | 検証者（テスト・lint・ビルド） | ✓ 作成済み |
@@ -103,14 +109,22 @@
 artifacts/bundles/autonomous-workflow/
 ├── README.md           # このファイル
 ├── rules/              # ワークフロー用ルール
-└── skills/             # 各スキル
-    ├── dig/
-    ├── decompose/
-    ├── evaluate/
+├── skills/             # ユーザー呼び出しスキル
+│   ├── dig/
+│   │   └── SKILL.md
+│   ├── decompose/
+│   │   └── SKILL.md
+│   └── evaluate/
+│       └── SKILL.md
+└── agents/             # 自律エージェント
     ├── conductor/
+    │   └── AGENT.md
     ├── implementer/
+    │   └── AGENT.md
     ├── validator/
+    │   └── AGENT.md
     └── reviewer/
+        └── AGENT.md
 ```
 
 ## 使い方
@@ -125,17 +139,21 @@ artifacts/bundles/autonomous-workflow/
 ### コマンド一覧
 
 ```bash
-# Plan & Dig Phase
+# Plan & Dig Phase（スキル - ユーザーが呼び出し）
 /dig        # 曖昧性解消を開始
 /decompose  # タスク分解を開始
 /evaluate   # 計画の評価・承認
-
-# Do Phase（通常は conductor が自動選択）
-/conductor   # 指揮者を手動起動
-/implementer # 実装を手動起動
-/validator   # 検証を手動起動
-/reviewer    # レビューを手動起動
 ```
+
+### エージェント（自律動作）
+
+Do Phaseのエージェントは `conductor` が自動的に選択・実行します。
+ユーザーが直接呼び出す必要はありません。
+
+- **conductor**: 状況判断・エージェント選択
+- **implementer**: コード実装
+- **validator**: テスト・lint・ビルド検証
+- **reviewer**: レビュー・完了判定
 
 ### 介入ポイント
 
