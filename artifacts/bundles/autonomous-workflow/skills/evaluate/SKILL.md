@@ -4,7 +4,7 @@ description: |
   TODOリストの品質をチェックし、ユーザー承認を得る。
   decomposeスキル完了後、または/evaluateコマンド実行時に使用。
   網羅性/粒度/明確性/依存関係/実現可能性を評価し、承認後にDo Phaseへ移行。
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob, TodoRead, TodoWrite, AskUserQuestion
 ---
 
 # evaluate
