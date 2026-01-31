@@ -1,3 +1,12 @@
+---
+name: sql-optimization
+description: |
+  遅いSQLクエリを分析し、改善案を提示する。
+  「最適化して」「遅いんだけど」「チューニングして」などクエリを貼り付けて依頼された時に使用。
+  インデックス、クエリ構造、JOIN、集計の観点で問題を検出。
+allowed-tools: Read, Grep, Glob
+---
+
 # SQLクエリ最適化スキル
 
 ## 呼び出し方

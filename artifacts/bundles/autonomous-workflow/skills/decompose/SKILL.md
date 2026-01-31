@@ -1,3 +1,12 @@
+---
+name: decompose
+description: |
+  決定事項を元に実行可能な粒度のタスクリストを作成する。
+  digスキル完了後、または/decomposeコマンド実行時に使用。
+  5〜30分単位のタスクに分解し、What/Where/How/Why/Done whenを明記。
+allowed-tools: Read, Grep, Glob
+---
+
 # decompose
 
 タスク分解スキル - 決定事項を元に実行可能な粒度のタスクリストを作成する

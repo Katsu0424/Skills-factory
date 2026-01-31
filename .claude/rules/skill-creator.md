@@ -3,13 +3,11 @@
 ## 概要
 このルールは、Claude Code用のSkill、Rule、Agentを作成する際に適用される。
 
-**重要: Skill作成時は `/skill-creator` コマンドを使用すること**
+**重要: Skill作成時は必ずYAML frontmatterを含めること**
 
 ---
 
 ## 種類の判定
-
-作成したいものがどの種類に該当するか、以下のフローで判定する。
 
 ```
 目的を達成したい
@@ -27,42 +25,116 @@
         └─ Yes → Bundle
 ```
 
-### 判定基準
-
 | 種類 | 特徴 | 例 |
 |------|------|-----|
-| **Rule** | 特定トリガーで自動適用、制約・規約を定義 | コミットメッセージ形式、コーディング規約 |
-| **Skill** | 会話で呼び出し、単一タスクを実行 | コードレビュー、バグ調査、SQL最適化 |
-| **Agent** | 複数ステップを自律実行、判断を伴う | テスト実行→修正→再実行、デプロイ自動化 |
-| **Bundle** | 関連する複数ツールをまとめたセット | 「開発ワークフロー」「レビュープロセス」 |
-
-### 具体例
-
-| やりたいこと | 種類 | 理由 |
-|--------------|------|------|
-| コミット時にメッセージ形式を強制 | Rule | 特定タイミングで自動適用 |
-| 「レビューして」でコードチェック | Skill | 会話で呼び出し、単一タスク |
-| テスト失敗→原因特定→修正を自動で | Agent | 複数ステップを自律実行 |
-| PR作成に必要なツール一式 | Bundle | Rule+Skillの組み合わせ |
+| **Rule** | 特定トリガーで自動適用 | コミットメッセージ形式、コーディング規約 |
+| **Skill** | 会話で呼び出し、単一タスク実行 | コードレビュー、バグ調査、SQL最適化 |
+| **Agent** | 複数ステップを自律実行 | テスト実行→修正→再実行 |
+| **Bundle** | 複数ツールのセット | 開発ワークフロー |
 
 ---
 
-## 作成方法
+## Skillの正式フォーマット（必須）
 
-### Skillを作成する場合
-1. `/skill-creator` コマンドを実行
-2. 対話形式でSkillを定義
-3. 生成されたファイルを `artifacts/skills/<skill-name>/` に配置
+### YAML Frontmatter
 
-### Ruleを作成する場合
-1. `artifacts/rules/<rule-name>.md` を作成
-2. 以下のテンプレートに従って記述
+全てのSKILL.mdは以下のYAML frontmatterで始めること：
+
+```yaml
+---
+name: skill-name
+description: |
+  このスキルの説明。Claudeが自動読み込み時に参照する。
+  いつ使うべきかを明記（例：「レビューして」と言われた時）。
+allowed-tools: Read, Grep, Glob
+---
+```
+
+### 必須フィールド
+
+| フィールド | 必須 | 説明 |
+|-----------|------|------|
+| `name` | ○ | スキル名（小文字、ハイフン区切り、最大64文字） |
+| `description` | ○ | スキルの説明（最大1024文字）。Claudeが自動実行の判断に使用 |
+
+### 任意フィールド
+
+| フィールド | 型 | 説明 |
+|-----------|-----|------|
+| `allowed-tools` | string | 許可なく使用できるツール（例：`Read, Grep, Bash(git *)`） |
+| `disable-model-invocation` | boolean | `true`: `/skill-name`でのみ実行（Claudeが自動実行しない） |
+| `user-invocable` | boolean | `false`: Claudeのみ実行可（ユーザーが`/`で呼び出せない） |
+| `context` | string | `fork`: 隔離されたサブエージェントで実行 |
+| `agent` | string | `context: fork`時のエージェント型（`Explore`, `Plan`等） |
+| `model` | string | このSkill実行時に使用するモデル |
+| `argument-hint` | string | `/`メニューに表示されるヒント（例：`[issue-number]`） |
+
+### allowed-toolsの書き方
+
+```yaml
+# 複数ツールを許可
+allowed-tools: Read, Grep, Glob, Bash(git *)
+
+# Bashは引数パターンで制限可能
+allowed-tools: Bash(npm test), Bash(git *)
+
+# 全Bashコマンドを許可（慎重に）
+allowed-tools: Bash(*)
+```
+
+---
+
+## Skillテンプレート
+
+```yaml
+---
+name: my-skill
+description: |
+  このスキルの目的と機能の説明。
+  「〇〇して」「△△を教えて」などと言われた時に使用。
+allowed-tools: Read, Grep, Glob
+---
+
+# スキル名
+
+## 目的
+（このスキルが達成すること）
+
+---
+
+## 処理フロー
+（実行時のステップ）
+
+## 出力形式
+（結果のフォーマット）
+```
+
+---
+
+## 動的コンテンツ機能
+
+### 変数置換
+
+| 変数 | 説明 |
+|-----|------|
+| `$ARGUMENTS` | 全ての引数 |
+| `$0`, `$1`, `$2` | 第1, 第2, 第3引数 |
+
+### コマンド実行結果の埋め込み
+
+```markdown
+## 現在の状態
+!`git status`
+
+## 差分
+!`git diff`
+```
+
+`` !`command` `` 構文でコマンド実行結果をコンテキストに挿入可能。
 
 ---
 
 ## 成果物の配置
-
-すべての成果物は `artifacts/` ディレクトリに配置する。
 
 ```
 artifacts/
@@ -70,7 +142,9 @@ artifacts/
 │   └── <name>.md
 ├── skills/          # 単体Skill
 │   └── <name>/
-│       └── SKILL.md
+│       ├── SKILL.md      # 必須（frontmatter含む）
+│       ├── README.md     # 任意（使い方説明）
+│       └── templates/    # 任意（出力テンプレート等）
 ├── agents/          # Agent
 │   └── <name>/
 │       └── AGENT.md
@@ -81,27 +155,6 @@ artifacts/
         ├── skills/
         └── agents/
 ```
-
-### Bundle（ツールセット）
-複数のRule/Skillを用途別にまとめる場合に使用。
-
-配置: `artifacts/bundles/<bundle-name>/`
-
-```
-artifacts/bundles/<bundle-name>/
-├── README.md           # バンドルの説明・使い方
-├── rules/              # このバンドルに含まれるルール
-│   └── <name>.md
-└── skills/             # このバンドルに含まれるスキル
-    └── <name>/
-        └── SKILL.md
-```
-
----
-
-## Agentを作成する場合
-1. `artifacts/agents/<agent-name>/` ディレクトリを作成
-2. `AGENT.md` にAgent定義を記述
 
 ---
 
@@ -152,20 +205,20 @@ artifacts/bundles/<bundle-name>/
 
 ## 命名規則
 
-- Rule: `<動詞>-<対象>.md` または `<対象>-<目的>.md`
-  - 例: `commit-message.md`, `pr-template.md`
-
-- Skill: `<対象>-<動作>/` または `<目的>/`
-  - 例: `code-review/`, `bug-investigation/`, `sql-optimization/`
-
-- Agent: `<役割>-agent/` または `<目的>-agent/`
-  - 例: `test-runner-agent/`, `deploy-agent/`
+- **Skill**: `<対象>-<動作>` または `<目的>`
+  - 例: `code-review`, `bug-investigation`, `sql-optimization`
+- **Rule**: `<動詞>-<対象>` または `<対象>-<目的>`
+  - 例: `commit-message`, `pr-template`
+- **Agent**: `<役割>-agent` または `<目的>-agent`
+  - 例: `test-runner-agent`, `deploy-agent`
 
 ---
 
-## 品質基準
+## 品質チェックリスト
 
-1. **明確性**: 曖昧な表現を避け、具体的に記述
-2. **完全性**: 必要な情報がすべて含まれている
-3. **実用性**: 実際のワークフローで使える
-4. **一貫性**: 他のSkill/Ruleと形式が統一されている
+- [ ] YAML frontmatterが存在する
+- [ ] `name`フィールドが正しい形式（小文字、ハイフン区切り）
+- [ ] `description`がいつ使うべきかを明記している
+- [ ] 必要な`allowed-tools`が設定されている
+- [ ] 処理フローが明確
+- [ ] 出力形式が定義されている

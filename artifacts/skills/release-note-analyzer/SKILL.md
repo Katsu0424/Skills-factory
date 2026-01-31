@@ -1,3 +1,12 @@
+---
+name: release-note-analyzer
+description: |
+  依存ライブラリのバージョンアップ時に、リリースノートを収集・分析し、プロジェクトへの影響を特定する。
+  「〇〇をアップデートしたい」「バージョン差分を教えて」「アップグレードの影響を分析して」などと言われた時に使用。
+  Breaking Changes、Deprecations、Security Fixesを抽出し、影響箇所とマイグレーション計画を提示。
+allowed-tools: Read, Grep, Glob, WebFetch, Bash(gh api *), Bash(gh release *)
+---
+
 # リリースノート検証スキル
 
 ## 呼び出し方
