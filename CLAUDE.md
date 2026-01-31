@@ -20,11 +20,13 @@ Skills-factory/
 ├── CLAUDE.md                    # 本ファイル（プロジェクトルール）
 ├── README.md                    # プロジェクト説明
 ├── .claude/
+│   ├── settings.json            # プロジェクト設定
 │   └── rules/
 │       └── skill-creator.md     # Skill/Rule作成用ルール ★重要
-├── artifacts/                   # 成果物（作成したSkill/Rule）
-│   ├── rules/                   # Rule成果物
-│   └── skills/                  # Skill成果物
+├── artifacts/                   # 成果物
+│   ├── rules/                   # 単体Rule
+│   ├── skills/                  # 単体Skill
+│   └── bundles/                 # 用途別ツールセット
 └── .github/
     └── pull_request_template.md
 ```
@@ -34,11 +36,12 @@ Skills-factory/
 ## 開発ルール
 
 ### 1. Skill/Rule作成時
-**必ず `.claude/rules/skill-creator.md` を参照すること**
+**Skill作成時は `/skill-creator` コマンドを使用すること**
 
 - 成果物は必ず `artifacts/` に配置
 - Ruleは `artifacts/rules/<name>.md`
 - Skillは `artifacts/skills/<name>/SKILL.md`
+- Bundleは `artifacts/bundles/<bundle-name>/`
 
 ### 2. コミット
 - コミットメッセージは明確に記述する

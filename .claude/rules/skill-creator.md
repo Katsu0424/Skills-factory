@@ -26,9 +26,29 @@
 
 ```
 artifacts/
-├── rules/           # Rule成果物
+├── rules/           # 単体Rule
 │   └── <name>.md
-└── skills/          # Skill成果物
+├── skills/          # 単体Skill
+│   └── <name>/
+│       └── SKILL.md
+└── bundles/         # 用途別ツールセット
+    └── <bundle-name>/
+        ├── README.md
+        ├── rules/
+        └── skills/
+```
+
+### Bundle（ツールセット）
+複数のRule/Skillを用途別にまとめる場合に使用。
+
+配置: `artifacts/bundles/<bundle-name>/`
+
+```
+artifacts/bundles/<bundle-name>/
+├── README.md           # バンドルの説明・使い方
+├── rules/              # このバンドルに含まれるルール
+│   └── <name>.md
+└── skills/             # このバンドルに含まれるスキル
     └── <name>/
         └── SKILL.md
 ```
