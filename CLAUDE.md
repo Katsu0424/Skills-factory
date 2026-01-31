@@ -26,6 +26,7 @@ Skills-factory/
 ├── artifacts/                   # 成果物
 │   ├── rules/                   # 単体Rule
 │   ├── skills/                  # 単体Skill
+│   ├── agents/                  # Agent
 │   └── bundles/                 # 用途別ツールセット
 └── .github/
     └── pull_request_template.md
@@ -41,6 +42,7 @@ Skills-factory/
 - 成果物は必ず `artifacts/` に配置
 - Ruleは `artifacts/rules/<name>.md`
 - Skillは `artifacts/skills/<name>/SKILL.md`
+- Agentは `artifacts/agents/<name>/AGENT.md`
 - Bundleは `artifacts/bundles/<bundle-name>/`
 
 ### 2. コミット

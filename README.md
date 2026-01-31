@@ -21,6 +21,7 @@ Skills-factory/
 ├── artifacts/                   # 成果物
 │   ├── rules/                   # 単体Rule
 │   ├── skills/                  # 単体Skill
+│   ├── agents/                  # Agent
 │   └── bundles/                 # 用途別ツールセット
 └── .github/
     └── pull_request_template.md
@@ -38,8 +39,13 @@ Skills-factory/
 
 配置: `artifacts/skills/<name>/SKILL.md`
 
+### Agents（エージェント）
+自律的にタスクを実行するエージェント。
+
+配置: `artifacts/agents/<name>/AGENT.md`
+
 ### Bundles（ツールセット）
-用途別に複数のRule/Skillをまとめたセット。
+用途別に複数のRule/Skill/Agentをまとめたセット。
 
 配置: `artifacts/bundles/<bundle-name>/`
 
@@ -47,10 +53,8 @@ Skills-factory/
 artifacts/bundles/<bundle-name>/
 ├── README.md           # バンドルの説明・使い方
 ├── rules/              # このバンドルに含まれるルール
-│   └── <name>.md
-└── skills/             # このバンドルに含まれるスキル
-    └── <name>/
-        └── SKILL.md
+├── skills/             # このバンドルに含まれるスキル
+└── agents/             # このバンドルに含まれるエージェント
 ```
 
 ## 成果物一覧
@@ -68,6 +72,9 @@ artifacts/bundles/<bundle-name>/
 | ask-workflow | 汎用ask | 曖昧な依頼時 |
 | bug-investigation | バグ調査 | 「調査して」等 |
 | sql-optimization | SQLクエリ最適化 | 「最適化して」等 |
+
+### Agents
+（今後追加予定）
 
 ### Bundles
 （今後追加予定）

@@ -31,11 +31,15 @@ artifacts/
 ├── skills/          # 単体Skill
 │   └── <name>/
 │       └── SKILL.md
+├── agents/          # Agent
+│   └── <name>/
+│       └── AGENT.md
 └── bundles/         # 用途別ツールセット
     └── <bundle-name>/
         ├── README.md
         ├── rules/
-        └── skills/
+        ├── skills/
+        └── agents/
 ```
 
 ### Bundle（ツールセット）
@@ -52,6 +56,12 @@ artifacts/bundles/<bundle-name>/
     └── <name>/
         └── SKILL.md
 ```
+
+---
+
+## Agentを作成する場合
+1. `artifacts/agents/<agent-name>/` ディレクトリを作成
+2. `AGENT.md` にAgent定義を記述
 
 ---
 
@@ -77,6 +87,29 @@ artifacts/bundles/<bundle-name>/
 
 ---
 
+## Agentのテンプレート
+
+```markdown
+# <Agent名>
+
+## 概要
+（このAgentの目的と役割）
+
+## 使用するツール
+（このAgentが使用するツール一覧）
+
+## 動作フロー
+（処理の流れ）
+
+## 設定
+（必要な設定・環境変数等）
+
+## 使用例
+（実行例）
+```
+
+---
+
 ## 命名規則
 
 - Rule: `<動詞>-<対象>.md` または `<対象>-<目的>.md`
@@ -84,6 +117,9 @@ artifacts/bundles/<bundle-name>/
 
 - Skill: `<対象>-<動作>/` または `<目的>/`
   - 例: `code-review/`, `bug-investigation/`, `sql-optimization/`
+
+- Agent: `<役割>-agent/` または `<目的>-agent/`
+  - 例: `test-runner-agent/`, `deploy-agent/`
 
 ---
 
