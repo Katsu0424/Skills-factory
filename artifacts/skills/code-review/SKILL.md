@@ -5,6 +5,8 @@ description: |
   「レビューして」「コードレビュー」「チェックして」などと言われた時に使用。
   ルール準拠、実装品質、セキュリティ、エラーハンドリング、パフォーマンス、可読性、テストの観点でチェック。
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git diff), Bash(git status), AskUserQuestion
+context: fork
+agent: Explore
 ---
 
 # コードレビュースキル
