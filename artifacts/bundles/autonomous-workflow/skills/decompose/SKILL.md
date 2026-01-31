@@ -6,7 +6,7 @@ description: |
   5〜30分単位のタスクに分解し、What/Where/How/Why/Done whenを明記。
 allowed-tools: Read, Write, Edit, Grep, Glob, TodoRead, TodoWrite, AskUserQuestion
 context: fork
-agent: Explore
+agent: Plan
 ---
 
 # decompose
