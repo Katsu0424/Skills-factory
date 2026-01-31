@@ -5,6 +5,8 @@ description: |
   コード生成、デバッグ、設計相談、調査、リファクタなどの意図を分類し、
   不足情報を質問して確認後に実行する。曖昧な依頼時に自動適用。
 allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
+context: fork
+agent: Explore
 ---
 
 # 汎用askスキル

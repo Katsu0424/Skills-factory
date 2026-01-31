@@ -5,6 +5,8 @@ description: |
   新しいタスク依頼時や要件が曖昧な場合に使用。
   スコープ/技術/UX/品質/運用の5カテゴリで曖昧点を洗い出し、2〜4個の質問で解消する。
 allowed-tools: Read, Write, Edit, Grep, Glob, TodoRead, TodoWrite, AskUserQuestion
+context: fork
+agent: Explore
 ---
 
 # dig
