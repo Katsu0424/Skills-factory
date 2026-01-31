@@ -4,7 +4,7 @@ description: |
   アラートやエラーログから原因箇所と修正案を特定する。
   「調査して」「原因は？」「なぜ落ちた？」などログを貼り付けて依頼された時に使用。
   構造化ログ、スタックトレース、Sentryアラート等に対応。
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
 ---
 
 # バグ調査スキル

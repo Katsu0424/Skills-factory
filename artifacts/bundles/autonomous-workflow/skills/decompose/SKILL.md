@@ -4,7 +4,7 @@ description: |
   決定事項を元に実行可能な粒度のタスクリストを作成する。
   digスキル完了後、または/decomposeコマンド実行時に使用。
   5〜30分単位のタスクに分解し、What/Where/How/Why/Done whenを明記。
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob, TodoRead, TodoWrite, AskUserQuestion
 ---
 
 # decompose

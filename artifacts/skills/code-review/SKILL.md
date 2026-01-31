@@ -4,7 +4,7 @@ description: |
   コミット前のコードレビューを実施し、問題点・改善案を提示する。
   「レビューして」「コードレビュー」「チェックして」などと言われた時に使用。
   ルール準拠、実装品質、セキュリティ、エラーハンドリング、パフォーマンス、可読性、テストの観点でチェック。
-allowed-tools: Read, Grep, Glob, Bash(git diff), Bash(git status)
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git diff), Bash(git status), AskUserQuestion
 ---
 
 # コードレビュースキル

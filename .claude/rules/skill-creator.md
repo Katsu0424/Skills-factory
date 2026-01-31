@@ -71,16 +71,46 @@ allowed-tools: Read, Grep, Glob
 
 ### allowed-toolsの書き方
 
+**基本ツール（ほぼ全てのSkillで必要）:**
+- `Read, Write, Edit` - ファイル読み書き・編集
+- `Grep, Glob` - 検索
+- `AskUserQuestion` - ユーザーへの質問（対話型Skillでは必須）
+
+**タスク管理が必要な場合:**
+- `TodoRead, TodoWrite` - TODOリスト管理
+
+**外部連携が必要な場合:**
+- `WebFetch` - Web取得
+- `Bash(git *)` - Gitコマンド
+- `Bash(gh *)` - GitHub CLI
+
 ```yaml
-# 複数ツールを許可
-allowed-tools: Read, Grep, Glob, Bash(git *)
+# 基本的なSkill（対話・ファイル操作）
+allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
+
+# タスク管理を含むSkill
+allowed-tools: Read, Write, Edit, Grep, Glob, TodoRead, TodoWrite, AskUserQuestion
+
+# 外部リソースを参照するSkill
+allowed-tools: Read, Write, Edit, Grep, Glob, WebFetch, Bash(gh api *), AskUserQuestion
 
 # Bashは引数パターンで制限可能
-allowed-tools: Bash(npm test), Bash(git *)
-
-# 全Bashコマンドを許可（慎重に）
-allowed-tools: Bash(*)
+allowed-tools: Bash(npm test), Bash(git diff), Bash(git status)
 ```
+
+### context / agent の設定
+
+大量の情報を探索・分析するSkillでは、隔離されたサブエージェントで実行すると効率的：
+
+```yaml
+context: fork
+agent: Explore
+```
+
+| agent | 用途 |
+|-------|------|
+| `Explore` | コードベース探索、情報収集 |
+| `Plan` | 実装計画の策定 |
 
 ---
 
@@ -92,7 +122,7 @@ name: my-skill
 description: |
   このスキルの目的と機能の説明。
   「〇〇して」「△△を教えて」などと言われた時に使用。
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
 ---
 
 # スキル名

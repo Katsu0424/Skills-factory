@@ -4,7 +4,7 @@ description: |
   曖昧なタスク依頼を対話で明確化し、適切なアクションに導く。
   コード生成、デバッグ、設計相談、調査、リファクタなどの意図を分類し、
   不足情報を質問して確認後に実行する。曖昧な依頼時に自動適用。
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
 ---
 
 # 汎用askスキル
