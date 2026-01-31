@@ -98,3 +98,4 @@ gh pr merge --merge
 | ask-workflow | 汎用ask | 曖昧な依頼時 |
 | bug-investigation | バグ調査 | 「調査して」等 |
 | sql-optimization | SQLクエリ最適化 | 「最適化して」等 |
+| release-note-analyzer | リリースノート検証・影響分析 | 「アップデートしたい」「差分を教えて」等 |
